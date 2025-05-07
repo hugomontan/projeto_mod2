@@ -12,28 +12,29 @@ Sistema para gerenciamento de reservas de salas:
 
 ## Estrutura de arquivos 
 
-projeto_mod2/
-│
-├── config/                # Arquivos de configuração (ex: conexão com banco)
-│   └── database.js
-├── controllers/           # Lógica de controle das requisições
-│   └── HomeController.js
-├── models/                # Definição de modelos de dados (estrutura do banco)
-│   └── User.js
-├── routes/                # Definição das rotas do sistema
-│   └── index.js
-├── services/              # Serviços auxiliares do sistema
-│   └── userService.js
-├── assets/                # Arquivos públicos como imagens e fontes
-├── scripts/               # Arquivos de JavaScript públicos
-├── styles/                # Arquivos CSS públicos
-├── tests/                 # Arquivos de testes unitários
-│   └── example.test.js
-├── .gitignore             # Arquivo para ignorar arquivos no Git
-├── .env.example           # Arquivo de exemplo para variáveis de ambiente
-├── jest.config.js         # Arquivo de configuração do Jest
-├── package-lock.json      # Gerenciador de dependências do Node.js
-├── package.json           # Gerenciador de dependências do Node.js
-├── readme.md              # Documentação do projeto (Markdown)
-├── server.js              # Arquivo principal que inicializa o servidor
-└── rest.http              # Teste de endpoints (opcional)
+| Pasta/Arquivo          | Conteúdo                |
+|------------------------|-------------------------|
+| **config/**            | Arquivos de configuração|
+| └── database.js        | Conexão com o banco     |
+| **controllers/**       | Controladores           |
+| └── HomeController.js  | Lógica principal        |
+| **models/**            | Modelos de dados        |
+| └── User.js            | Modelo de usuário       |
+| **routes/**            | Definição de rotas      |
+| └── index.js           | Rotas do sistema        |
+| **services/**          | Serviços auxiliares     |
+| └── userService.js     | Serviços de usuário     |
+| **assets/**            | Arquivos estáticos      |
+| **scripts/**           | JavaScript público      |
+| **styles/**            | Arquivos CSS            |
+| **tests/**             | Testes unitários        |
+| └── example.test.js    | Exemplo de teste        |
+| **Arquivos raiz**      |                         |
+| .gitignore             | Ignorados pelo Git      |
+| .env.example           | Variáveis de ambiente   |
+| jest.config.js         | Configuração do Jest    |
+| package-lock.json      | Dependências travadas   |
+| package.json           | Dependências do projeto |
+| readme.md              | Documentação            |
+| server.js              | Servidor principal      |
+| rest.http              | (opcional)|
