@@ -44,7 +44,7 @@ Sistema para gerenciamento de reservas de salas:
 1. **Clonar o repositório:**
 
    ````
-   git clone https://github.com/liviacoliveira/Inteli-M2-Projeto-individual.git
+   git clone https://github.com/hugomontan/projeto_mod2.git
    cd Inteli-M2-Projeto-individual
    ````
 
