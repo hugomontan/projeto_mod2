@@ -38,3 +38,24 @@ Sistema para gerenciamento de reservas de salas:
 | readme.md              | Documentação            |
 | server.js              | Servidor principal      |
 | rest.http              | (opcional)|
+
+## Como executar o projeto localmente
+
+1. **Clonar o repositório:**
+
+   ````
+   git clone https://github.com/hugomontan/projeto_mod2.git
+   cd Inteli-M2-Projeto-individual
+   ````
+
+2. **Instalar as dependências:**
+
+````
+ npm install 
+ ````
+
+3. **Inicie o servidor:**
+
+````
+ npm start 
+ ````
