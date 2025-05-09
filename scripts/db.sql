@@ -1,0 +1,23 @@
+CREATE TABLE salas (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  nome TEXT NOT NULL,
+  tipo TEXT NOT NULL,
+  capacidade INTEGER NOT NULL
+);
+
+CREATE TABLE usuarios (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  nome TEXT NOT NULL,
+  email TEXT NOT NULL UNIQUE
+);
+
+CREATE TABLE reservas (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  sala_id INTEGER NOT NULL,
+  usuario_id INTEGER NOT NULL,
+  data TEXT NOT NULL,
+  horario_inicio TEXT NOT NULL,
+  horario_fim TEXT NOT NULL,
+  FOREIGN KEY (sala_id) REFERENCES salas(id),
+  FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
+);
