@@ -70,4 +70,4 @@ Sistema para gerenciamento de reservas de salas:
 
 ## Diagrama de arquitetura 
 
-![](assets\diagram.png)
+![](./assets/diagram.png)
