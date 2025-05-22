@@ -67,11 +67,40 @@ CREATE TABLE reservas (
 ```
 
 ### 3.1.1 BD e Models (Semana 5)
-*Descreva aqui os Models implementados no sistema web*
+
+## Salas
+
+A tabela **`salas`** armazena informações sobre as salas disponíveis para reserva. Cada sala possui:
+
+- **id**: Identificador único da sala (chave primária, autoincrementada).
+- **nome**: Nome da sala (obrigatório).
+- **tipo**: Tipo ou categoria da sala, como reunião, aula, etc. (obrigatório).
+- **capacidade**: Capacidade máxima de pessoas que a sala comporta (obrigatório).
+
+## Usuários
+
+A tabela **`usuarios`** contém os dados dos usuários que podem realizar reservas:
+
+- **id**: Identificador único do usuário (chave primária, autoincrementada).
+- **nome**: Nome completo do usuário (obrigatório).
+- **email**: Endereço de e-mail único do usuário (obrigatório e único).
+
+## Reservas
+
+A tabela **`reservas`** registra as reservas feitas pelos usuários para as salas. Os principais campos são:
+
+- **id**: Identificador único da reserva (chave primária, autoincrementada).
+- **sala_id**: Referência ao **id** da sala reservada (chave estrangeira).
+- **usuario_id**: Referência ao **id** do usuário que fez a reserva (chave estrangeira).
+- **data**: Data da reserva (obrigatório).
+- **horario_inicio**: Horário de início da reserva (obrigatório).
+- **horario_fim**: Horário de término da reserva (obrigatório).
 
 ### 3.2. Arquitetura (Semana 5)
 
-*Posicione aqui o diagrama de arquitetura da sua solução de aplicação web. Atualize sempre que necessário.*
+Um diagrama de arquitetura representa visualmente a organização e a interação dos componentes de um sistema de software. Ele oferece uma visão clara da estrutura geral da aplicação, facilitando a compreensão do funcionamento do sistema antes mesmo de seu desenvolvimento. Essa representação é fundamental para o planejamento, documentação e comunicação entre desenvolvedores e demais stakeholders do projeto.
+
+No contexto deste projeto, o diagrama foi utilizado para ilustrar as conexões entre models, views e controllers, destacando como esses elementos colaboram para manter o fluxo de informações e garantir a comunicação eficiente entre a interface do usuário e a lógica de negócio, conforme demonstrado a seguir:
 
 **Instruções para criação do diagrama de arquitetura**  
 - **Model**: A camada que lida com a lógica de negócios e interage com o banco de dados.
@@ -79,6 +108,8 @@ CREATE TABLE reservas (
 - **Controller**: A camada que recebe as requisições, processa as ações e atualiza o modelo e a visualização.
   
 *Adicione as setas e explicações sobre como os dados fluem entre o Model, Controller e View.*
+
+![](./assets/diagram.png)
 
 ### 3.3. Wireframes (Semana 03 - opcional)
 
