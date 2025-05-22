@@ -67,3 +67,7 @@ Sistema para gerenciamento de reservas de salas:
 ````
  npm start 
  ````
+
+## Diagrama de arquitetura 
+
+![](assets\diagram.png)
