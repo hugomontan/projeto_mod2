@@ -126,7 +126,52 @@ No contexto deste projeto, o diagrama foi utilizado para ilustrar as conexões e
 
 ### 3.6. WebAPI e endpoints (Semana 05)
 
-*Utilize um link para outra página de documentação contendo a descrição completa de cada endpoint. Ou descreva aqui cada endpoint criado para seu sistema.*  
+Usuários
+### Usuários
+
+| Método | Endpoint        | Descrição                 | Parâmetros / Corpo                                      |
+|--------|-----------------|--------------------------|--------------------------------------------------------|
+| POST   | /usuarios       | Criar novo usuário       | Corpo JSON: `{ nome, email, senha }`                   |
+| GET    | /usuarios       | Listar todos os usuários | -                                                      |
+| GET    | /usuarios/:id   | Buscar usuário por ID    | Parâmetro URL: `id`                                    |
+| PUT    | /usuarios/:id   | Atualizar usuário        | Parâmetro URL: `id`<br>Corpo JSON: campos a atualizar |
+| DELETE | /usuarios/:id   | Deletar usuário por ID   | Parâmetro URL: `id`                                    |
+
+---
+
+### Salas
+
+| Método | Endpoint      | Descrição                | Parâmetros / Corpo                                      |
+|--------|---------------|-------------------------|--------------------------------------------------------|
+| POST   | /salas        | Criar nova sala         | Corpo JSON: `{ nome, tipo, capacidade }`               |
+| GET    | /salas        | Listar todas as salas   | -                                                      |
+| GET    | /salas/:id    | Buscar sala por ID      | Parâmetro URL: `id`                                    |
+| PUT    | /salas/:id    | Atualizar sala          | Parâmetro URL: `id`<br>Corpo JSON: campos a atualizar |
+| DELETE | /salas/:id    | Deletar sala por ID     | Parâmetro URL: `id`                                    |
+
+---
+
+### Reservas
+
+| Método | Endpoint        | Descrição                 | Parâmetros / Corpo                                      |
+|--------|-----------------|--------------------------|--------------------------------------------------------|
+| POST   | /reservas       | Criar nova reserva       | Corpo JSON: `{ sala_id, usuario_id, data, horario_inicio, horario_fim }` |
+| GET    | /reservas       | Listar todas as reservas | -                                                      |
+| GET    | /reservas/:id   | Buscar reserva por ID    | Parâmetro URL: `id`                                    |
+| PUT    | /reservas/:id   | Atualizar reserva        | Parâmetro URL: `id`<br>Corpo JSON: campos a atualizar |
+| DELETE | /reservas/:id   | Deletar reserva por ID   | Parâmetro URL: `id`                                    |
+
+---
+
+### Eventos
+
+| Método | Endpoint      | Descrição               | Parâmetros / Corpo                                      |
+|--------|---------------|------------------------|--------------------------------------------------------|
+| POST   | /eventos      | Criar novo evento      | Corpo JSON: `{ titulo, descricao, data, categoriaId }` |
+| GET    | /eventos      | Listar todos os eventos | -                                                      |
+| GET    | /eventos/:id  | Buscar evento por ID   | Parâmetro URL: `id`                                    |
+| PUT    | /eventos/:id  | Atualizar evento       | Parâmetro URL: `id`<br>Corpo JSON: campos a atualizar |
+| DELETE | /eventos/:id  | Deletar evento por ID  | Parâmetro URL: `id`                                    |
 
 ### 3.7 Interface e Navegação (Semana 07)
 
