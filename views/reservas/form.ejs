@@ -1,0 +1,119 @@
+<%- include('../partials/header', { 
+    title: reserva && reserva.id ? 'Editar Reserva' : 'Nova Reserva', 
+    currentPage: 'reservas' 
+}) %>
+
+<div class="card">
+    <div class="card-header">
+        <h2 class="card-title">
+            <i class="fas fa-<%= reserva && reserva.id ? 'edit' : 'plus' %>"></i>
+            <%= reserva && reserva.id ? 'Editar Reserva' : 'Nova Reserva' %>
+        </h2>
+        <a href="/reservas" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Voltar
+        </a>
+    </div>
+    
+    <div class="card-body">
+        <form id="reserva-form" class="ajax-form" 
+              action="<%= reserva && reserva.id ? `/api/reservas/${reserva.id}` : '/api/reservas' %>" 
+              method="<%= reserva && reserva.id ? 'PUT' : 'POST' %>"
+              data-redirect="/reservas">
+            
+            <% if (reserva && reserva.id) { %>
+                <input type="hidden" name="id" value="<%= reserva.id %>">
+            <% } %>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="usuario_id" class="form-label">Usuário *</label>
+                    <select id="usuario_id" name="usuario_id" class="form-control" required>
+                        <option value="">Selecione o usuário</option>
+                        <% if (usuarios && usuarios.length > 0) { %>
+                            <% usuarios.forEach(usuario => { %>
+                            <option value="<%= usuario.id %>" 
+                                    <%= reserva && reserva.usuario_id == usuario.id ? 'selected' : '' %>>
+                                <%= usuario.nome %> (<%= usuario.email %>)
+                            </option>
+                            <% }); %>
+                        <% } %>
+                    </select>
+                    <% if (!usuarios || usuarios.length === 0) { %>
+                        <small class="text-muted">
+                            <i class="fas fa-info-circle"></i>
+                            Nenhum usuário cadastrado. <a href="/usuarios/novo">Cadastre um usuário primeiro</a>.
+                        </small>
+                    <% } %>
+                </div>
+                
+                <div class="form-group">
+                    <label for="sala_id" class="form-label">Sala *</label>
+                    <select id="sala_id" name="sala_id" class="form-control" required>
+                        <option value="">Selecione a sala</option>
+                        <% if (salas && salas.length > 0) { %>
+                            <% salas.forEach(sala => { %>
+                            <option value="<%= sala.id %>" 
+                                    <%= reserva && reserva.sala_id == sala.id ? 'selected' : '' %>>
+                                <%= sala.nome %> - <%= sala.tipo %> (Cap: <%= sala.capacidade %>)
+                            </option>
+                            <% }); %>
+                        <% } %>
+                    </select>
+                    <% if (!salas || salas.length === 0) { %>
+                        <small class="text-muted">
+                            <i class="fas fa-info-circle"></i>
+                            Nenhuma sala cadastrada. <a href="/salas/nova">Cadastre uma sala primeiro</a>.
+                        </small>
+                    <% } %>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="data" class="form-label">Data da Reserva *</label>
+                <input type="date" 
+                       id="data" 
+                       name="data" 
+                       class="form-control" 
+                       value="<%= reserva && reserva.data ? new Date(reserva.data).toISOString().split('T')[0] : '' %>"
+                       required
+                       min="<%= new Date().toISOString().split('T')[0] %>">
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="horario_inicio" class="form-label">Horário de Início *</label>
+                    <input type="time" 
+                           id="horario_inicio" 
+                           name="horario_inicio" 
+                           class="form-control" 
+                           value="<%= reserva && reserva.horario_inicio ? reserva.horario_inicio.substring(0, 5) : '' %>"
+                           required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="horario_fim" class="form-label">Horário de Fim *</label>
+                    <input type="time" 
+                           id="horario_fim" 
+                           name="horario_fim" 
+                           class="form-control" 
+                           value="<%= reserva && reserva.horario_fim ? reserva.horario_fim.substring(0, 5) : '' %>"
+                           required>
+                </div>
+            </div>
+            
+            <div id="availability-message"></div>
+            
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i>
+                    <%= reserva && reserva.id ? 'Atualizar Reserva' : 'Criar Reserva' %>
+                </button>
+                <a href="/reservas" class="btn btn-secondary">
+                    <i class="fas fa-times"></i> Cancelar
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>

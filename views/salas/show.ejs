@@ -1,0 +1,119 @@
+<%- include('../partials/header', { title: 'Detalhes da Sala', currentPage: 'salas' }) %>
+
+<div class="card">
+    <div class="card-header">
+        <h2 class="card-title">
+            <i class="fas fa-building"></i>
+            Detalhes da Sala
+        </h2>
+        <div>
+            <a href="/salas/<%= sala.id %>/editar" class="btn btn-warning">
+                <i class="fas fa-edit"></i> Editar
+            </a>
+            <a href="/salas" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Voltar
+            </a>
+        </div>
+    </div>
+    
+    <div class="card-body">
+        <div class="form-row">
+            <div class="form-group">
+                <label class="form-label">ID</label>
+                <div class="form-control" style="background-color: #f8f9fa; border: none;">
+                    <%= sala.id %>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Nome da Sala</label>
+                <div class="form-control" style="background-color: #f8f9fa; border: none;">
+                    <%= sala.nome %>
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-row">
+            <div class="form-group">
+                <label class="form-label">Tipo</label>
+                <div class="form-control" style="background-color: #f8f9fa; border: none;">
+                    <span class="btn btn-<%= sala.tipo === 'Ateliê' ? 'warning' : 'success' %> btn-sm" style="pointer-events: none;">
+                        <i class="fas fa-<%= sala.tipo === 'Ateliê' ? 'paint-brush' : 'book' %>"></i>
+                        <%= sala.tipo %>
+                    </span>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Capacidade</label>
+                <div class="form-control" style="background-color: #f8f9fa; border: none;">
+                    <i class="fas fa-users"></i>
+                    <%= sala.capacidade %> pessoas
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <h3><i class="fas fa-calendar-alt"></i> Reservas da Sala</h3>
+            <% if (reservas && reservas.length > 0) { %>
+                <div class="table-container">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Usuário</th>
+                                <th>Data</th>
+                                <th>Horário</th>
+                                <th>Status</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% reservas.forEach(reserva => { %>
+                            <tr>
+                                <td>Usuário <%= reserva.usuario_id %></td>
+                                <td><%= new Date(reserva.data).toLocaleDateString('pt-BR') %></td>
+                                <td><%= reserva.horario_inicio %> - <%= reserva.horario_fim %></td>
+                                <td>
+                                    <% 
+                                    const hoje = new Date();
+                                    const dataReserva = new Date(reserva.data);
+                                    const status = dataReserva >= hoje ? 'Ativa' : 'Finalizada';
+                                    const statusClass = dataReserva >= hoje ? 'success' : 'secondary';
+                                    %>
+                                    <span class="btn btn-<%= statusClass %> btn-sm" style="pointer-events: none;">
+                                        <%= status %>
+                                    </span>
+                                </td>
+                                <td>
+                                    <a href="/reservas/<%= reserva.id %>" class="btn btn-secondary btn-sm">
+                                        <i class="fas fa-eye"></i> Ver
+                                    </a>
+                                </td>
+                            </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+            <% } else { %>
+                <div class="text-center" style="padding: 2rem; background-color: #f8f9fa; border-radius: 5px;">
+                    <i class="fas fa-calendar-times" style="font-size: 3rem; color: #ccc; margin-bottom: 1rem;"></i>
+                    <p>Esta sala ainda não possui reservas.</p>
+                    <a href="/reservas/nova" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Criar Reserva
+                    </a>
+                </div>
+            <% } %>
+        </div>
+        
+        <div class="form-group">
+            <button class="btn btn-danger btn-delete" 
+                    data-url="/api/salas/<%= sala.id %>"
+                    data-type="sala"
+                    data-name="<%= sala.nome %>">
+                <i class="fas fa-trash"></i> Excluir Sala
+            </button>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>

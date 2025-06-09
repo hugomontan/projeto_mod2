@@ -1,0 +1,66 @@
+<%- include('../partials/header', { title: 'Usuários', currentPage: 'usuarios' }) %>
+
+<div class="card">
+    <div class="card-header">
+        <h2 class="card-title">
+            <i class="fas fa-users"></i>
+            Gerenciar Usuários
+        </h2>
+        <a href="/usuarios/novo" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Novo Usuário
+        </a>
+    </div>
+    
+    <% if (usuarios && usuarios.length > 0) { %>
+        <div class="table-container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Email</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% usuarios.forEach(usuario => { %>
+                    <tr>
+                        <td><%= usuario.id %></td>
+                        <td><%= usuario.nome %></td>
+                        <td><%= usuario.email %></td>
+                        <td>
+                            <div class="table-actions">
+                                <a href="/usuarios/<%= usuario.id %>" class="btn btn-secondary btn-sm">
+                                    <i class="fas fa-eye"></i> Ver
+                                </a>
+                                <a href="/usuarios/<%= usuario.id %>/editar" class="btn btn-warning btn-sm">
+                                    <i class="fas fa-edit"></i> Editar
+                                </a>
+                                <button class="btn btn-danger btn-sm btn-delete" 
+                                        data-url="/api/usuarios/<%= usuario.id %>"
+                                        data-type="usuário"
+                                        data-name="<%= usuario.nome %>">
+                                    <i class="fas fa-trash"></i> Excluir
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+    <% } else { %>
+        <div class="card-body text-center">
+            <div style="padding: 3rem;">
+                <i class="fas fa-users" style="font-size: 4rem; color: #ccc; margin-bottom: 1rem;"></i>
+                <h3>Nenhum usuário cadastrado</h3>
+                <p>Comece adicionando o primeiro usuário ao sistema.</p>
+                <a href="/usuarios/novo" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Cadastrar Primeiro Usuário
+                </a>
+            </div>
+        </div>
+    <% } %>
+</div>
+
+<%- include('../partials/footer') %>

@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const app = express();
 const PORT = 3000;
 
@@ -8,8 +9,16 @@ db.connect()
   .then(() => console.log('Conectado ao banco de dados!'))
   .catch(err => console.error('Erro ao conectar ao banco de dados:', err));
 
-// Middleware para processar JSON
+// Configuração do EJS
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
+// Middleware para servir arquivos estáticos
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Middleware para processar JSON e formulários
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Rotas
 const routes = require('./routes/index');

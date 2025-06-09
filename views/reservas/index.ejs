@@ -1,0 +1,92 @@
+<%- include('../partials/header', { title: 'Reservas', currentPage: 'reservas' }) %>
+
+<div class="card">
+    <div class="card-header">
+        <h2 class="card-title">
+            <i class="fas fa-calendar-alt"></i>
+            Gerenciar Reservas
+        </h2>
+        <a href="/reservas/nova" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Nova Reserva
+        </a>
+    </div>
+    
+    <% if (reservas && reservas.length > 0) { %>
+        <div class="table-container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Sala</th>
+                        <th>Usuário</th>
+                        <th>Data</th>
+                        <th>Horário</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% reservas.forEach(reserva => { %>
+                    <tr>
+                        <td><%= reserva.id %></td>
+                        <td>
+                            <i class="fas fa-door-open"></i>
+                            <%= reserva.sala_nome || `Sala ${reserva.sala_id}` %>
+                        </td>
+                        <td>
+                            <i class="fas fa-user"></i>
+                            <%= reserva.usuario_nome || `Usuário ${reserva.usuario_id}` %>
+                        </td>
+                        <td><%= new Date(reserva.data).toLocaleDateString('pt-BR') %></td>
+                        <td>
+                            <i class="fas fa-clock"></i>
+                            <%= reserva.horario_inicio %> - <%= reserva.horario_fim %>
+                        </td>
+                        <td>
+                            <% 
+                            const hoje = new Date();
+                            const dataReserva = new Date(reserva.data);
+                            const status = dataReserva >= hoje ? 'Ativa' : 'Finalizada';
+                            const statusClass = dataReserva >= hoje ? 'success' : 'secondary';
+                            %>
+                            <span class="btn btn-<%= statusClass %> btn-sm" style="pointer-events: none;">
+                                <i class="fas fa-<%= dataReserva >= hoje ? 'check-circle' : 'clock' %>"></i>
+                                <%= status %>
+                            </span>
+                        </td>
+                        <td>
+                            <div class="table-actions">
+                                <a href="/reservas/<%= reserva.id %>" class="btn btn-secondary btn-sm">
+                                    <i class="fas fa-eye"></i> Ver
+                                </a>
+                                <a href="/reservas/<%= reserva.id %>/editar" class="btn btn-warning btn-sm">
+                                    <i class="fas fa-edit"></i> Editar
+                                </a>
+                                <button class="btn btn-danger btn-sm btn-delete" 
+                                        data-url="/api/reservas/<%= reserva.id %>"
+                                        data-type="reserva"
+                                        data-name="ID <%= reserva.id %>">
+                                    <i class="fas fa-trash"></i> Excluir
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+    <% } else { %>
+        <div class="card-body text-center">
+            <div style="padding: 3rem;">
+                <i class="fas fa-calendar-alt" style="font-size: 4rem; color: #ccc; margin-bottom: 1rem;"></i>
+                <h3>Nenhuma reserva encontrada</h3>
+                <p>Comece criando a primeira reserva do sistema.</p>
+                <a href="/reservas/nova" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Criar Primeira Reserva
+                </a>
+            </div>
+        </div>
+    <% } %>
+</div>
+
+<%- include('../partials/footer') %>

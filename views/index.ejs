@@ -1,0 +1,137 @@
+<%- include('partials/header', { title: 'Dashboard', currentPage: 'home' }) %>
+
+<div class="dashboard-stats">
+    <div class="stat-card">
+        <div class="stat-icon" style="color: #667eea;">
+            <i class="fas fa-users"></i>
+        </div>
+        <div class="stat-number"><%= stats.usuarios %></div>
+        <div class="stat-label">Usuários Cadastrados</div>
+    </div>
+    
+    <div class="stat-card">
+        <div class="stat-icon" style="color: #56ab2f;">
+            <i class="fas fa-building"></i>
+        </div>
+        <div class="stat-number"><%= stats.salas %></div>
+        <div class="stat-label">Salas Disponíveis</div>
+    </div>
+    
+    <div class="stat-card">
+        <div class="stat-icon" style="color: #f093fb;">
+            <i class="fas fa-calendar-alt"></i>
+        </div>
+        <div class="stat-number"><%= stats.reservas %></div>
+        <div class="stat-label">Reservas Ativas</div>
+    </div>
+    
+    <div class="stat-card">
+        <div class="stat-icon" style="color: #ff416c;">
+            <i class="fas fa-clock"></i>
+        </div>
+        <div class="stat-number"><%= stats.reservasHoje %></div>
+        <div class="stat-label">Reservas Hoje</div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h2 class="card-title">
+            <i class="fas fa-tachometer-alt"></i>
+            Bem-vindo ao RoomReserve
+        </h2>
+    </div>
+    <div class="card-body">
+        <p class="mb-3">
+            Sistema completo para gerenciamento de reservas de salas acadêmicas. 
+            Gerencie usuários, salas e reservas de forma simples e eficiente.
+        </p>
+        
+        <div class="form-row">
+            <div>
+                <h3><i class="fas fa-rocket"></i> Ações Rápidas</h3>
+                <div class="mt-2">
+                    <a href="/reservas/nova" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Nova Reserva
+                    </a>
+                    <a href="/usuarios/novo" class="btn btn-success">
+                        <i class="fas fa-user-plus"></i> Novo Usuário
+                    </a>
+                    <a href="/salas/nova" class="btn btn-warning">
+                        <i class="fas fa-door-open"></i> Nova Sala
+                    </a>
+                </div>
+            </div>
+            
+            <div>
+                <h3><i class="fas fa-chart-line"></i> Resumo do Sistema</h3>
+                <ul style="list-style: none; padding: 0; margin-top: 1rem;">
+                    <li style="margin-bottom: 0.5rem;">
+                        <i class="fas fa-check-circle" style="color: #28a745;"></i>
+                        Sistema de reservas funcionando
+                    </li>
+                    <li style="margin-bottom: 0.5rem;">
+                        <i class="fas fa-check-circle" style="color: #28a745;"></i>
+                        Prevenção de conflitos de horário
+                    </li>
+                    <li style="margin-bottom: 0.5rem;">
+                        <i class="fas fa-check-circle" style="color: #28a745;"></i>
+                        Interface responsiva e moderna
+                    </li>
+                    <li style="margin-bottom: 0.5rem;">
+                        <i class="fas fa-check-circle" style="color: #28a745;"></i>
+                        Operações CRUD completas
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% if (reservasRecentes && reservasRecentes.length > 0) { %>
+<div class="card">
+    <div class="card-header">
+        <h2 class="card-title">
+            <i class="fas fa-history"></i>
+            Reservas Recentes
+        </h2>
+        <a href="/reservas" class="btn btn-secondary btn-sm">Ver Todas</a>
+    </div>
+    <div class="table-container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Sala</th>
+                    <th>Usuário</th>
+                    <th>Data</th>
+                    <th>Horário</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% reservasRecentes.forEach(reserva => { %>
+                <tr>
+                    <td><%= reserva.sala_nome || `Sala ${reserva.sala_id}` %></td>
+                    <td><%= reserva.usuario_nome || `Usuário ${reserva.usuario_id}` %></td>
+                    <td><%= new Date(reserva.data).toLocaleDateString('pt-BR') %></td>
+                    <td><%= reserva.horario_inicio %> - <%= reserva.horario_fim %></td>
+                    <td>
+                        <% 
+                        const hoje = new Date();
+                        const dataReserva = new Date(reserva.data);
+                        const status = dataReserva >= hoje ? 'Ativa' : 'Finalizada';
+                        const statusClass = dataReserva >= hoje ? 'success' : 'secondary';
+                        %>
+                        <span class="btn btn-<%= statusClass %> btn-sm" style="pointer-events: none;">
+                            <%= status %>
+                        </span>
+                    </td>
+                </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+</div>
+<% } %>
+
+<%- include('partials/footer') %>

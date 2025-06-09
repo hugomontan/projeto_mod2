@@ -3,25 +3,10 @@ const router = express.Router();
 
 const controller = require('../controllers/ReservasController');
 
-// Exemplo de rotas para reservas
-router.get('/', (req, res) => {
-    controller.listar(req, res);
-});
-
-router.post('/', (req, res) => {
-    controller.criar(req, res);
-});
-
-router.get('/:id', (req, res) => {
-    controller.detalhar(req, res);
-});
-
-router.put('/:id', (req, res) => {
-    controller.atualizar(req, res);
-});
-
-router.delete('/:id', (req, res) => {
-    controller.deletar(req, res);
-});
+// Rotas para Views (HTML)
+router.get('/', controller.index);
+router.get('/nova', controller.new);
+router.get('/:id', controller.show);
+router.get('/:id/editar', controller.edit);
 
 module.exports = router;

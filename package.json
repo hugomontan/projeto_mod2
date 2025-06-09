@@ -1,11 +1,15 @@
 {
   "name": "hugo_montan_mod2",
   "version": "1.0.0",
-  "main": "jest.config.js",
+  "main": "server.js",
   "directories": {
     "test": "tests"
   },
   "scripts": {
+    "init-db": "node scripts/runSQLScript.js && npm run populate-db",
+    "populate-db": "node scripts/populate_db.js",
+    "setup-db": "npm run init-db && npm run populate-db",
+    "dev": "nodemon server.js",
     "start": "node server.js"
   },
   "keywords": [],
@@ -14,7 +18,10 @@
   "description": "",
   "dependencies": {
     "dotenv": "^16.5.0",
+    "ejs": "^3.1.9",
     "express": "^5.1.0",
+    "node-fetch": "^2.7.0",
+    "nodemon": "^3.1.10",
     "pg": "^8.16.0"
   }
 }

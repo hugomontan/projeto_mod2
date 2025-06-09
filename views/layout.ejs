@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title || 'RoomReserve' %> - Sistema de Reserva de Salas</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <h1 class="logo">
+                    <i class="fas fa-door-open"></i>
+                    RoomReserve
+                </h1>
+                <nav class="nav">
+                    <a href="/" class="nav-link <%= currentPage === 'home' ? 'active' : '' %>">
+                        <i class="fas fa-home"></i> Início
+                    </a>
+                    <a href="/usuarios" class="nav-link <%= currentPage === 'usuarios' ? 'active' : '' %>">
+                        <i class="fas fa-users"></i> Usuários
+                    </a>
+                    <a href="/salas" class="nav-link <%= currentPage === 'salas' ? 'active' : '' %>">
+                        <i class="fas fa-building"></i> Salas
+                    </a>
+                    <a href="/reservas" class="nav-link <%= currentPage === 'reservas' ? 'active' : '' %>">
+                        <i class="fas fa-calendar-alt"></i> Reservas
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <% if (typeof message !== 'undefined' && message) { %>
+                <div class="alert alert-<%= messageType || 'info' %>">
+                    <i class="fas fa-<%= messageType === 'error' ? 'exclamation-triangle' : 'check-circle' %>"></i>
+                    <%= message %>
+                </div>
+            <% } %>
+            
+            <%- body %>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 RoomReserve - Sistema de Reserva de Salas Acadêmicas</p>
+        </div>
+    </footer>
+
+    <script src="/js/app.js"></script>
+</body>
+</html>
