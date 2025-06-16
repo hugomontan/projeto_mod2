@@ -11,6 +11,16 @@ const pool = new Pool({
 
 async function populateDatabase() {
   try {
+    // Limpar tabelas existentes
+    await pool.query('DELETE FROM reservas');
+    await pool.query('DELETE FROM usuarios');
+    await pool.query('DELETE FROM salas');
+    
+    // Resetar sequências
+    await pool.query('ALTER SEQUENCE usuarios_id_seq RESTART WITH 1');
+    await pool.query('ALTER SEQUENCE salas_id_seq RESTART WITH 1');
+    await pool.query('ALTER SEQUENCE reservas_id_seq RESTART WITH 1');
+    
     // Inserir usuários de exemplo
     const usuarios = [
       { nome: 'João Silva', email: 'joao.silva@email.com' },

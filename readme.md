@@ -2,7 +2,27 @@
 
 ## Descrição
 
-Sistema completo para gerenciamento de reservas de salas acadêmicas com interface web moderna e funcional.
+RoomReserve é um sistema completo para gerenciamento de reservas de salas acadêmicas com interface web moderna e funcional. Desenvolvido com Node.js, Express e PostgreSQL, o sistema permite o gerenciamento eficiente de usuários, salas e reservas em ambiente acadêmico.
+
+## Demonstração
+
+[Vídeo de Demonstração](https://drive.google.com/drive/folders/1OCQVqVh5E0mYsSDLS0MvvLnaK3lnz8Vb?usp=sharing)
+
+*Clique no texto acima para assistir ao vídeo de demonstração completa do sistema*
+
+## Interface do Sistema
+
+### Dashboard Principal
+![Dashboard](./assets/dashboard.png)
+
+### Gerenciamento de Salas
+![Gerenciamento de Salas](./assets/manage-room.png)
+
+### Detalhes da Sala
+![Detalhes da Sala](./assets/room-details.png)
+
+### Sistema de Reservas
+![Sistema de Reservas](./assets/manage-reserve.png)
 
 ### Funcionalidades Principais
 
@@ -20,6 +40,9 @@ Sistema completo para gerenciamento de reservas de salas acadêmicas com interfa
 - **Frontend**: EJS (Template Engine) + CSS + JavaScript (Fetch API)
 - **Banco de Dados**: PostgreSQL
 - **Arquitetura**: MVC (Model-View-Controller)
+- **Estilização**: CSS puro com Flexbox e Grid Layout
+- **Iconografia**: Font Awesome
+- **Validação**: JavaScript + Middleware Express
 
 ## Como Executar o Sistema
 
@@ -34,6 +57,7 @@ Sistema completo para gerenciamento de reservas de salas acadêmicas com interfa
 1. **Clone ou baixe o projeto**
 
    ```bash
+   git clone https://github.com/hugomontan/projeto_mod2.git
    cd projeto_mod2
    ```
 
@@ -53,6 +77,7 @@ Sistema completo para gerenciamento de reservas de salas acadêmicas com interfa
    DB_NAME=seu_banco
    DB_PASSWORD=sua_senha
    DB_PORT=5432
+   DB_SSL=true
    ```
 
 4. **Inicialize o banco de dados**
@@ -67,10 +92,22 @@ Sistema completo para gerenciamento de reservas de salas acadêmicas com interfa
    npm run populate-db
    ```
 
+   Alternativamente, execute ambos os comandos de uma vez:
+
+   ```bash
+   npm run setup-db
+   ```
+
 6. **Execute o sistema**
 
    ```bash
    npm start
+   ```
+
+   Para desenvolvimento com recarga automática:
+
+   ```bash
+   npm run dev
    ```
 
 7. **Acesse no navegador**
@@ -79,47 +116,32 @@ Sistema completo para gerenciamento de reservas de salas acadêmicas com interfa
    http://localhost:3000
    ```
 
-### Scripts Disponíveis
+## Estrutura do Projeto
 
-- `npm run init-db` - Cria as tabelas no banco
-- `npm run populate-db` - Insere dados de exemplo
-- `npm run setup-db` - Executa init-db + populate-db
-- `npm start` - Inicia o servidor
-- `npm run dev` - Inicia com nodemon (desenvolvimento)
+O projeto segue a arquitetura MVC (Model-View-Controller) para uma organização clara e manutenção facilitada:
 
-## Como Usar o Sistema
-
-### Dashboard Principal
-
-- Acesse `http://localhost:3000` para ver o painel principal
-- Visualize estatísticas gerais do sistema
-- Acesse ações rápidas para criar novos registros
-
-### Gerenciar Usuários
-
-- **Listar**: `/usuarios` - Visualizar todos os usuários
-- **Criar**: `/usuarios/novo` - Cadastrar novo usuário
-- **Ver Detalhes**: `/usuarios/{id}` - Ver informações e reservas do usuário
-- **Editar**: `/usuarios/{id}/editar` - Modificar dados do usuário
-
-### Gerenciar Salas
-
-- **Listar**: `/salas` - Visualizar todas as salas
-- **Criar**: `/salas/nova` - Cadastrar nova sala
-- **Ver Detalhes**: `/salas/{id}` - Ver informações e reservas da sala
-- **Editar**: `/salas/{id}/editar` - Modificar dados da sala
-
-### Gerenciar Reservas
-
-- **Listar**: `/reservas` - Visualizar todas as reservas
-- **Criar**: `/reservas/nova` - Criar nova reserva
-- **Ver Detalhes**: `/reservas/{id}` - Ver informações completas da reserva
-- **Editar**: `/reservas/{id}/editar` - Modificar reserva existente
+```
+projeto_mod2/
+├── assets/               # Imagens e recursos estáticos
+├── config/               # Configurações (banco de dados)
+├── controllers/          # Controladores da aplicação
+├── middleware/           # Middleware de validação
+├── models/               # Modelos de dados
+├── public/               # Arquivos públicos (CSS, JS)
+├── routes/               # Definição de rotas
+├── scripts/              # Scripts de banco de dados
+├── views/                # Templates EJS
+├── .env                  # Variáveis de ambiente
+├── package.json          # Dependências
+├── readme.md             # Documentação
+└── server.js             # Ponto de entrada da aplicação
+```
 
 ## API Endpoints
 
-### Usuários
+O sistema oferece uma API RESTful completa para integração com outros sistemas:
 
+### Usuários
 - `GET /api/usuarios` - Listar usuários
 - `POST /api/usuarios` - Criar usuário
 - `GET /api/usuarios/{id}` - Buscar usuário
@@ -127,7 +149,6 @@ Sistema completo para gerenciamento de reservas de salas acadêmicas com interfa
 - `DELETE /api/usuarios/{id}` - Deletar usuário
 
 ### Salas
-
 - `GET /api/salas` - Listar salas
 - `POST /api/salas` - Criar sala
 - `GET /api/salas/{id}` - Buscar sala
@@ -135,7 +156,6 @@ Sistema completo para gerenciamento de reservas de salas acadêmicas com interfa
 - `DELETE /api/salas/{id}` - Deletar sala
 
 ### Reservas
-
 - `GET /api/reservas` - Listar reservas
 - `POST /api/reservas` - Criar reserva
 - `GET /api/reservas/{id}` - Buscar reserva
